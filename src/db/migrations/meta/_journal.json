@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1706472241736,
+      "tag": "0000_military_juggernaut",
+      "breakpoints": true
+    }
+  ]
+}

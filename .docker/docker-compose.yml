@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  bot:
+    depends_on:
+      - postgres
+    build:
+      context: ../
+      dockerfile: .docker/Dockerfile
+    pull_policy: build
+    networks:
+      - network
+    environment:
+      - TOKEN=${TOKEN}
+      - USER_AGENT=${USER_AGENT}
+      - DATABASE_URL=${DATABASE_URL}
+
+  postgres:
+    image: postgres:13.11
+    environment:
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_DATABASE=${DATABASE_DATABASE}
+    networks:
+      - network
+    volumes:
+      - postgresdata:/var/lib/postgresql/data
+
+networks:
+  network:
+    driver: bridge
+
+volumes:
+  postgresdata:
+  redisdata:

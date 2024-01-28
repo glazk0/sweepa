@@ -1,0 +1,69 @@
+{
+  "name": "sweepa",
+  "version": "1.0.0",
+  "description": "A Discord bot integration of the https://gaming.tools/palworld Palworld database.",
+  "type": "module",
+  "main": "dist/index",
+  "scripts": {
+    "start": "node dist/index",
+    "build": "tsc --build && pnpm postbuild",
+    "postbuild": "ncp \"src/db/migrations\" \"dist/db/migrations\"",
+    "i18n": "typesafe-i18n",
+    "format": "biome format src --write",
+    "docker:up": "docker-compose -f .docker/docker-compose.yml --env-file .env up  --force-recreate -d",
+    "docker:down": "docker-compose -f .docker/docker-compose.yml --env-file .env down",
+    "docker:logs": "docker-compose -f .docker/docker-compose.yml --env-file .env logs -f",
+    "db:drop": "drizzle-kit drop",
+    "db:generate": "drizzle-kit generate:pg",
+    "db:push": "drizzle-kit push:pg",
+    "db:introspect": "drizzle-kit introspect:pg",
+    "db:studio": "drizzle-kit studio"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/glazk0/sweepa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/glazk0/sweepa/issues"
+  },
+  "homepage": "https://github.com/glazk0/sweepa#readme",
+  "keywords": [
+    "discord",
+    "bot",
+    "palworld",
+    "database",
+    "gaming.tools",
+    "sweepa",
+    "sweepa-bot"
+  ],
+  "author": "glazk0",
+  "contributors": [
+    "glazk0 <glazk0@peerat.dev> (https://github.com/glazk0)"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@t3-oss/env-core": "^0.8.0",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "drizzle-orm": "^0.29.3",
+    "glob": "10.3.10",
+    "lru-cache": "^10.2.0",
+    "node-schedule": "2.1.1",
+    "pino": "^8.17.2",
+    "pino-pretty": "^10.3.1",
+    "postgres": "^3.4.3",
+    "query-string": "^8.1.0",
+    "reflect-metadata": "^0.2.1",
+    "tsyringe": "^4.8.0",
+    "typesafe-i18n": "^5.26.2",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.4.1",
+    "@types/node": "^20.11.2",
+    "@types/node-schedule": "2.1.5",
+    "drizzle-kit": "^0.20.12",
+    "ncp": "^2.0.0",
+    "typescript": "^5.3.3"
+  }
+}
