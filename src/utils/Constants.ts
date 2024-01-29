@@ -5,7 +5,12 @@ import { Locales } from "../i18n/i18n-types.js";
 /**
  * The gaming.tools/palword URL.
  */
-export const PALWORLD_DATABASE_URL = "https://gaming.tools/palword";
+export const PALWORLD_DATABASE_URL = "https://gaming.tools/palworld";
+
+/**
+ * The gaming.tools/palword CDN URL.
+ */
+export const PALWORLD_CDN_URL = "https://cdn.gaming.tools/palworld";
 
 /**
  * The support server invite link.
@@ -101,7 +106,7 @@ export const discordToPalworld = {
 } as Record<Locale, Locales>;
 
 /**
- * Zeki locales to their full name.
+ * Sweepa locales to their full name.
  */
 export const localesMap: Record<Locales, string> = {
 	en: "English", // Supported by gaming.tools/palworld
@@ -116,3 +121,10 @@ export const localesMap: Record<Locales, string> = {
 	"zh-hans": "简体中文", // Supported by gaming.tools/palworld
 	"zh-hant": "繁體中文", // Supported by gaming.tools/palworld
 };
+
+/**
+ * Emojis used by the bot.
+ */
+export enum Emojis {
+	Sweepa = "<:sweepa:1201308767984295997>",
+}

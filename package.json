@@ -10,7 +10,7 @@
     "postbuild": "ncp \"src/db/migrations\" \"dist/db/migrations\"",
     "i18n": "typesafe-i18n",
     "format": "biome format src --write",
-    "docker:up": "docker-compose -f .docker/docker-compose.yml --env-file .env up  --force-recreate -d",
+    "docker:up": "docker-compose -f .docker/docker-compose.yml --env-file .env up --force-recreate -d",
     "docker:down": "docker-compose -f .docker/docker-compose.yml --env-file .env down",
     "docker:logs": "docker-compose -f .docker/docker-compose.yml --env-file .env logs -f",
     "db:drop": "drizzle-kit drop",

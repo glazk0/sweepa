@@ -21,14 +21,6 @@ const en_discord: BaseTranslation = {
 		name: "about",
 		description: "Retrieve detailed information about Sweepa.",
 	},
-	search: {
-		name: "search",
-		description: "Search any information in the database.",
-	},
-	"search.query": {
-		name: "query",
-		description: "The query to search for.",
-	},
 };
 
 export default en_discord;

@@ -1,4 +1,4 @@
-import { PALWORLD_DATABASE_URL } from "./Constants.js";
+import { PALWORLD_CDN_URL, PALWORLD_DATABASE_URL } from "./Constants.js";
 
 import { Locales } from "../i18n/i18n-types.js";
 
@@ -7,7 +7,16 @@ import { Locales } from "../i18n/i18n-types.js";
  *
  * @param locale - The locale to use.
  */
-export const databaseUrl = (locale: Locales, path?: string) => (path ? `${PALWORLD_DATABASE_URL}/${locale}/${path}` : `${PALWORLD_DATABASE_URL}/${locale}`);
+export const databaseUrl = (locale: Locales, path?: string[]) => (path ? `${PALWORLD_DATABASE_URL}/${locale}/${path.join("/")}` : `${PALWORLD_DATABASE_URL}/${locale}`);
+
+/**
+ * Return a URL for an icon.
+ * 
+ * @param path - The path to the icon.
+ * @param size - The size of the icon.
+ */
+export const iconUrl = (path: string, size: 30 | 128 | 256 | 512 = 128) => `${PALWORLD_CDN_URL}${path.replace('{height}', `${size}`)}`;
+
 
 /**
  * Wait for a given amount of milliseconds.

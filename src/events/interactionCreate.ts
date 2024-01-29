@@ -34,14 +34,16 @@ export default class InteractionCreate extends Event {
 		let guild: Guild | undefined;
 
 		const context: Context = {
+			locale,
 			i18n: L[locale],
 			guild: undefined,
 		};
 
 		if (interaction.inGuild()) {
 			guild = await findOrCreateGuild(interaction.guildId);
-			context.guild = guild;
+			context.locale = guild?.locale ?? locale;
 			context.i18n = L[guild?.locale as Locales];
+			context.guild = guild;
 		}
 
 		if (interaction.isChatInputCommand()) {

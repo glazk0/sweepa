@@ -13,6 +13,7 @@ services:
     environment:
       - TOKEN=${TOKEN}
       - USER_AGENT=${USER_AGENT}
+      - API_URL=${API_URL}
       - DATABASE_URL=${DATABASE_URL}
 
   postgres:

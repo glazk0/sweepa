@@ -15,19 +15,11 @@ const ja_discord: NamespaceDiscordTranslation = {
 	},
 	help: {
 		name: "help",
-		description: "Display a comprehensive list of Zeki's available commands.",
+		description: "Display a comprehensive list of Sweepa's available commands.",
 	},
 	about: {
 		name: "about",
-		description: "Retrieve detailed information about Zeki.",
-	},
-	search: {
-		name: "search",
-		description: "Search any information in the database.",
-	},
-	"search.query": {
-		name: "query",
-		description: "The query to search for.",
+		description: "Retrieve detailed information about Sweepa.",
 	},
 };
 

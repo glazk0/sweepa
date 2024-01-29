@@ -1,6 +1,6 @@
 import * as Discord from "discord.js";
 
-import { TranslationFunctions } from "../i18n/i18n-types.js";
+import { Locales, TranslationFunctions } from "../i18n/i18n-types.js";
 
 import { Guild } from "../db/schema/guilds.js";
 
@@ -11,6 +11,7 @@ export enum Category {
 }
 
 export interface Context {
+	locale: Locales;
 	i18n: TranslationFunctions;
 	guild: Guild | undefined;
 }
