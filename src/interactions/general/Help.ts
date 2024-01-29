@@ -16,7 +16,7 @@ import { Category, Context, Interaction } from "../../structures/Interaction.js"
 
 import { HelpEmbed } from "../../lib/embeds/HelpEmbed.js";
 
-import { BOT_PERMISSIONS, Emojis, SUPPORT_SERVER, clientSymbol } from "../../utils/Constants.js";
+import { BOT_PERMISSIONS, SUPPORT_SERVER, clientSymbol } from "../../utils/Constants.js";
 
 import { commands } from "../../i18n/commands.js";
 
