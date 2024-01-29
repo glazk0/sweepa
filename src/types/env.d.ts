@@ -6,11 +6,11 @@ declare namespace NodeJS {
 		USER_AGENT: string;
 		API_URL: string;
 		// Database
-		DATABASE_HOST: string;
-		DATABASE_PORT: number;
-		DATABASE_USER: string;
-		DATABASE_PASSWORD: string;
-		DATABASE_DATABASE: string;
+		POSTGRES_HOST: string;
+		POSTGRES_PORT: string;
+		POSTGRES_USER: string;
+		POSTGRES_PASSWORD: string;
+		POSTGRES_DATABASE: string;
 		DATABASE_URL: string;
 	}
 }

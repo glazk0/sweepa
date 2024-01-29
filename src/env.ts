@@ -17,11 +17,11 @@ export const env = createEnv({
 		API_URL: z.string(),
 
 		// Database
-		DATABASE_HOST: z.string().default("postgres"),
-		DATABASE_PORT: z.number().default(5432),
-		DATABASE_USER: z.string().default("postgres"),
-		DATABASE_PASSWORD: z.string().default("postgres"),
-		DATABASE_DATABASE: z.string().default("postgres"),
+		POSTGRES_HOST: z.string().default("localhost"),
+		POSTGRES_PORT: z.number().default(5432),
+		POSTGRES_USER: z.string().default("postgres"),
+		POSTGRES_PASSWORD: z.string().default("postgres"),
+		POSTGRES_DATABASE: z.string().default("postgres"),
 		DATABASE_URL: z.string(),
 	},
 	runtimeEnv: process.env,
