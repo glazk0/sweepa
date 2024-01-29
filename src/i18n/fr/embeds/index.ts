@@ -6,7 +6,7 @@ const fr_embeds: NamespaceEmbedsTranslation = {
 		description: "Voici une liste de toutes mes commandes. Vous pouvez également les voir lorsque vous tapez «/» dans Discord.",
 	},
 	about: {
-		description: "{username} est un bot Discord intuitif et convivial connecté à https://paliapedia.com et a été créé par {developers}",
+		description: "{username} est un bot Discord intuitif et convivial connecté à https://gaming.tools/palworld et a été créé par {developers}",
 		statistics_name: "Statistiques",
 		statistics_value: "Serveurs: {servers}\nUtilisateurs: {users}",
 		debug_name: "Debug",
