@@ -6,7 +6,7 @@ const ru_embeds: NamespaceEmbedsTranslation = {
 		description: "Вот список всех моих команд. Вы также можете их пересмотреть, введя `/` в поле Дискорда.",
 	},
 	about: {
-		description: "{username} - интуитивно понятный и удобный Дискорд бот, подключенный к https://paliapedia.com и разработанный @ {developers}.",
+		description: "{username} - интуитивно понятный и удобный Дискорд бот, подключенный к https://gaming.tools/palworld и разработанный @ {developers}.",
 		statistics_name: "Статистика",
 		statistics_value: "Серверы: {servers}\nЮзеры: {users}",
 		debug_name: "Debug",

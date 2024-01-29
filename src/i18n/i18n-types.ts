@@ -279,7 +279,7 @@ export type TranslationFunctions = {
 		};
 		about: {
 			/**
-			 * {username} is an intuitive and user-friendly Discord bot connected to https://paliapedia.com and has been created by {developers}.
+			 * {username} is an intuitive and user-friendly Discord bot connected to https://gaming.tools/palworld and has been created by {developers}.
 			 */
 			description: (arg: { developers: unknown; username: unknown }) => LocalizedString;
 			/**
