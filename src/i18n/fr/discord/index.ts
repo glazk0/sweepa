@@ -3,23 +3,23 @@ import { NamespaceDiscordTranslation } from "../../i18n-types";
 const fr_discord: NamespaceDiscordTranslation = {
 	settings: {
 		name: "settings",
-		description: "Access and manage your server settings.",
+		description: "Accédez et gérez les paramètres de votre serveur.",
 	},
 	["settings.locale"]: {
 		name: "locale",
-		description: "Change the language settings for your server.",
+		description: "Modifiez les paramètres de langue pour votre serveur.",
 	},
 	["settings.locale.value"]: {
 		name: "value",
-		description: "Specify the preferred language for your server.",
+		description: "Spécifiez la langue préférée pour votre serveur.",
 	},
 	help: {
 		name: "help",
-		description: "Display a comprehensive list of Sweepa's available commands.",
+		description: "Affiche une liste complète des commandes disponibles de Sweepa.",
 	},
 	about: {
 		name: "about",
-		description: "Retrieve detailed information about Sweepa.",
+		description: "Obtenez des informations détaillées sur Sweepa.",
 	},
 };
 
