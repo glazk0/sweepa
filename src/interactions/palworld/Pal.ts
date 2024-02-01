@@ -43,7 +43,7 @@ export default class Pal implements Interaction {
 
     const query = interaction.options.getString("query", true);
 
-    const data = await api.getPal(query, ctx.i18n);
+    const data = await api.pal.details(query, ctx.i18n);
 
     if (!data) return await interaction.reply({
       content: "No Pal found.",
@@ -59,9 +59,17 @@ export default class Pal implements Interaction {
   async autocomplete(interaction: AutocompleteInteraction<CacheType>, ctx: Context): Promise<void> {
     const value = interaction.options.getFocused();
 
-    if (!value) return await interaction.respond([]);
+    if (!value?.length) {
 
-    const data = await api.search(value, ctx.i18n,  EntityType.Pal);
+      const data = (await api.pal.list(ctx.i18n)).slice(0, 25);
+
+      return await interaction.respond(data.map((item) => ({
+        name: item.name,
+        value: item.id,
+      })));
+    };
+
+    const data = await api.search(value, ctx.i18n, EntityType.Pal);
 
     await interaction.respond(
       data.map((item) => ({

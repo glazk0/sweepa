@@ -4,7 +4,8 @@ import { request } from "../utils/Commons.js";
 
 import { TranslationFunctions } from "../i18n/i18n-types.js";
 
-import type { EntityType, ItemDetailsResponse, ItemDetailsResponseEnveloped, PalDetailsResponse, PalDetailsResponseEnveloped, SearchResponse } from "../types/api.js";
+import { CacheType, CommandInteractionOption } from "discord.js";
+import type { EntityType, ItemDetailsResponse, ItemDetailsResponseEnveloped, PalBreedingResponse, PalBreedingResponseEnveloped, PalBreedingResponseIEnumerableEnveloped, PalDetailsResponse, PalDetailsResponseEnveloped, PalSummaryResponse, PalSummaryResponseIEnumerableEnveloped, SearchResponse } from "../types/api.js";
 
 /**
  * The different types of search that Palworld Database API supports.
@@ -32,57 +33,146 @@ export const api = {
 
 		return response;
 	},
-	getPals: async () => { },
-	getPal: async (query: string, i18n: TranslationFunctions): Promise<PalDetailsResponse | null> => {
+	breedings: {
+		twoParents: async (options: CommandInteractionOption<CacheType>, i18n: TranslationFunctions): Promise<PalBreedingResponse | null> => {
 
-		const queries = queryString.stringify(
-			{
+			const queries = queryString.stringify(
+				{
+					...options,
+					lang: i18n.locale(),
+				},
+				{
+					skipNull: true,
+					skipEmptyString: true,
+				},
+			);
+
+			const { data } = await request<PalBreedingResponseEnveloped>(`${process.env.API_URL}/breedings/two-parents?${queries}`, {
+				type: "json",
+			});
+
+			if (!data) return null;
+
+			return data;
+		},
+		oneParent: async (options: CommandInteractionOption<CacheType>, i18n: TranslationFunctions): Promise<PalBreedingResponse[]> => {
+
+			const queries = queryString.stringify(
+				{
+					...options,
+					lang: i18n.locale(),
+				},
+				{
+					skipNull: true,
+					skipEmptyString: true,
+				},
+			);
+
+			const { data } = await request<PalBreedingResponseIEnumerableEnveloped>(`${process.env.API_URL}/breedings/one-parent?${queries}`, {
+				type: "json",
+			});
+
+			if (!data) return [];
+
+			return data;
+
+		},
+		oneChild: async (options: CommandInteractionOption<CacheType>, i18n: TranslationFunctions): Promise<PalSummaryResponse[]> => {
+
+			const queries = queryString.stringify(
+				{
+					...options,
+					lang: i18n.locale(),
+				},
+				{
+					skipNull: true,
+					skipEmptyString: true,
+				},
+			);
+
+			const { data } = await request<PalSummaryResponseIEnumerableEnveloped>(`${process.env.API_URL}/breedings/one-child?${queries}`, {
+				type: "json",
+			});
+
+			if (!data) return [];
+
+			return data;
+		},
+	},
+	pal: {
+		list: async (i18n: TranslationFunctions) => {
+
+			const queries = queryString.stringify({
 				lang: i18n.locale(),
-			},
-			{
+			}, {
 				skipNull: true,
 				skipEmptyString: true,
-			},
-		);
+			});
 
-		const { data } = await request<PalDetailsResponseEnveloped>(`${process.env.API_URL}/pals/${query}?${queries}`, {
-			type: "json",
-		});
+			const { data } = await request<PalSummaryResponseIEnumerableEnveloped>(`${process.env.API_URL}/pals?${queries}`, {
+				type: "json",
+			});
 
-		if (!data) return null;
+			if (!data) return [];
 
-		return data;
+			return data;
+		},
+		details: async (query: string, i18n: TranslationFunctions): Promise<PalDetailsResponse | null> => {
+			const queries = queryString.stringify(
+				{
+					lang: i18n.locale(),
+				},
+				{
+					skipNull: true,
+					skipEmptyString: true,
+				},
+			);
+
+			const { data } = await request<PalDetailsResponseEnveloped>(`${process.env.API_URL}/pals/${query}?${queries}`, {
+				type: "json",
+			});
+
+			if (!data) return null;
+
+			return data;
+		},
 	},
-	getItems: async () => { },
-	getItem: async (query: string, i18n: TranslationFunctions): Promise<ItemDetailsResponse | null> => {
-		const queries = queryString.stringify(
-			{
+	item: {
+		list: async (i18n: TranslationFunctions) => {
+
+			const queries = queryString.stringify({
 				lang: i18n.locale(),
-			},
-			{
+			}, {
 				skipNull: true,
 				skipEmptyString: true,
-			},
-		);
+			});
 
-		const { data } = await request<ItemDetailsResponseEnveloped>(`${process.env.API_URL}/items/${query}?${queries}`, {
-			type: "json",
-		});
+			const { data } = await request<PalSummaryResponseIEnumerableEnveloped>(`${process.env.API_URL}/items?${queries}`, {
+				type: "json",
+			});
 
-		if (!data) return null;
+			if (!data) return [];
 
-		return data;
+			return data;
+		},
+		details: async (query: string, i18n: TranslationFunctions): Promise<ItemDetailsResponse | null> => {
+			const queries = queryString.stringify(
+				{
+					lang: i18n.locale(),
+				},
+				{
+					skipNull: true,
+					skipEmptyString: true,
+				},
+			);
+
+			const { data } = await request<ItemDetailsResponseEnveloped>(`${process.env.API_URL}/items/${query}?${queries}`, {
+				type: "json",
+			});
+
+			if (!data) return null;
+
+			return data;
+		},
 	},
-	getRecipes: async () => { },
-	getRecipe: async () => { },
-	getInfrastructures: async () => { },
-	getInfrastructure: async () => { },
-	getTechnologies: async () => { },
-	getTechnology: async () => { },
-	getActiveSkills: async () => { },
-	getActiveSkill: async () => { },
-	getPassiveSkills: async () => { },
-	getPassiveSkill: async () => { },
-	getPartnerSkills: async () => { },
-	getPartnerSkill: async () => { },
 };

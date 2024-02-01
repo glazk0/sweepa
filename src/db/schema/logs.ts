@@ -2,6 +2,7 @@ import { index, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 
 import { pgTable } from "./_table.js";
 
+import { relations } from "drizzle-orm";
 import { guilds } from "./guilds.js";
 
 export const logs = pgTable(
@@ -18,3 +19,7 @@ export const logs = pgTable(
 		};
 	},
 );
+
+export const logsRelations = relations(logs, ({ one }) => ({
+	guild: one(guilds),
+}));
