@@ -1,3 +1,14 @@
+/* eslint-disable */
+/* tslint:disable */
+/*
+ * ---------------------------------------------------------------
+ * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
+ * ##                                                           ##
+ * ## AUTHOR: acacode                                           ##
+ * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
+ * ---------------------------------------------------------------
+ */
+
 export interface ActiveSkillDetailsResponse {
   id?: string | null;
   type?: EntityType;
@@ -339,6 +350,24 @@ export interface PalActiveSkill {
   level?: number;
 }
 
+export interface PalBreedingResponse {
+  parent1?: PalSummaryResponse;
+  parent2?: PalSummaryResponse;
+  child?: PalSummaryResponse;
+}
+
+export interface PalBreedingResponseEnveloped {
+  data?: PalBreedingResponse;
+  metadata?: Metadata;
+  filterOptions?: Filter[] | null;
+}
+
+export interface PalBreedingResponseIEnumerableEnveloped {
+  data?: PalBreedingResponse[] | null;
+  metadata?: Metadata;
+  filterOptions?: Filter[] | null;
+}
+
 export interface PalDetailsResponse {
   /** @minLength 1 */
   id: string;
@@ -364,6 +393,8 @@ export interface PalDetailsResponse {
   dropsMap: Record<string, ItemSummaryResponse>;
   passiveSkillsMap: Record<string, PassiveSkillSummaryResponse>;
   partnerSkill: PartnerSkillSummaryResponse;
+  breedingChildren: PalBreedingResponse[];
+  breedingParents: PalBreedingResponse[];
 }
 
 export interface PalDetailsResponseEnveloped {
@@ -648,6 +679,14 @@ export interface PassiveSkillSummaryResponseIEnumerableEnveloped {
   filterOptions?: Filter[] | null;
 }
 
+export enum PassiveSkillType {
+  Unknown = "Unknown",
+  Pal = "Pal",
+  Weapon = "Weapon",
+  Armor = "Armor",
+  Accessory = "Accessory",
+}
+
 export interface RecipeDetailsResponse {
   /** @minLength 1 */
   id: string;
@@ -785,6 +824,28 @@ export interface TreasureBox {
 export interface VisualBlueprintClassSoft {
   AssetPathName?: string | null;
   SubPathString?: string | null;
+}
+
+export interface WorkDetailsResponse {
+  /** @minLength 1 */
+  id: string;
+  type: EntityType;
+  /** @minLength 1 */
+  name: string;
+  iconPath?: string | null;
+  pals: WorkSuitabilityPalResponse[];
+}
+
+export interface WorkDetailsResponseEnveloped {
+  data?: WorkDetailsResponse;
+  metadata?: Metadata;
+  filterOptions?: Filter[] | null;
+}
+
+export interface WorkSuitabilityPalResponse {
+  pal?: PalSummaryResponse;
+  /** @format int32 */
+  level?: number;
 }
 
 export interface WorkSummaryResponse {

@@ -7,7 +7,7 @@ import { Locales } from "../i18n/i18n-types.js";
  *
  * @param locale - The locale to use.
  */
-export const databaseUrl = (locale: Locales, path?: string[]) => (path ? `${PALWORLD_DATABASE_URL}/${locale}/${path.join("/")}` : `${PALWORLD_DATABASE_URL}/${locale}`);
+export const databaseUrl = (locale: Locales, path?: string[]) => (path ? `${PALWORLD_DATABASE_URL}/${locale}/${path.join("/")}?ref=sweepa` : `${PALWORLD_DATABASE_URL}/${locale}?ref=sweepa`);
 
 /**
  * Return a URL for an icon.
