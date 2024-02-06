@@ -103,6 +103,12 @@ export const discordToPalworld = {
 	"pt-BR": "pt-br",
 	"zh-CN": "zh-hans",
 	"zh-TW": "zh-hant",
+	"fr": "fr",
+	"de": "de",
+	"it": "it",
+	"ja": "ja",
+	"ko": "ko",
+	"ru": "ru",
 } as Record<Locale, Locales>;
 
 /**
