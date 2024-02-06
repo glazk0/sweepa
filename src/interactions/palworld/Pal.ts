@@ -61,10 +61,11 @@ export default class Pal implements Interaction {
 
     if (!value?.length) {
 
-      const data = (await api.pal.list(ctx.i18n)).slice(0, 25);
+      const data = (await api.pal.list(ctx.i18n))
+        .slice(0, 25);
 
       return await interaction.respond(data.map((item) => ({
-        name: item.name,
+        name: item.namePrefix ? `${item.name}, ${item.namePrefix}` : item.name || `Unnamed (TBD ${item.id})`,
         value: item.id,
       })));
     };

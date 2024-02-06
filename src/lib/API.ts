@@ -5,7 +5,7 @@ import { request } from "../utils/Commons.js";
 import { TranslationFunctions } from "../i18n/i18n-types.js";
 
 import { CacheType, CommandInteractionOption } from "discord.js";
-import type { EntityType, ItemDetailsResponse, ItemDetailsResponseEnveloped, PalBreedingResponse, PalBreedingResponseEnveloped, PalBreedingResponseIEnumerableEnveloped, PalDetailsResponse, PalDetailsResponseEnveloped, PalSummaryResponse, PalSummaryResponseIEnumerableEnveloped, SearchResponse } from "../types/api.js";
+import type { BreedingSummaryResponse, BreedingSummaryResponseEnveloped, BreedingSummaryResponseIEnumerableEnveloped, CharacterDetailsResponse, CharacterDetailsResponseEnveloped, CharacterSummaryResponse, CharacterSummaryResponseIEnumerableEnveloped, EntityType, ItemDetailsResponse, ItemDetailsResponseEnveloped, ItemSummaryResponse, ItemSummaryResponseIEnumerableEnveloped, SearchResponse } from "../types/api.js";
 
 /**
  * The different types of search that Palworld Database API supports.
@@ -34,7 +34,7 @@ export const api = {
 		return response;
 	},
 	breedings: {
-		twoParents: async (options: CommandInteractionOption<CacheType>, i18n: TranslationFunctions): Promise<PalBreedingResponse | null> => {
+		twoParents: async (options: CommandInteractionOption<CacheType>, i18n: TranslationFunctions): Promise<BreedingSummaryResponse | null> => {
 
 			const queries = queryString.stringify(
 				{
@@ -47,7 +47,7 @@ export const api = {
 				},
 			);
 
-			const { data } = await request<PalBreedingResponseEnveloped>(`${process.env.API_URL}/breedings/two-parents?${queries}`, {
+			const { data } = await request<BreedingSummaryResponseEnveloped>(`${process.env.API_URL}/breedings/two-parents?${queries}`, {
 				type: "json",
 			});
 
@@ -55,7 +55,7 @@ export const api = {
 
 			return data;
 		},
-		oneParent: async (options: CommandInteractionOption<CacheType>, i18n: TranslationFunctions): Promise<PalBreedingResponse[]> => {
+		oneParent: async (options: CommandInteractionOption<CacheType>, i18n: TranslationFunctions): Promise<BreedingSummaryResponse[]> => {
 
 			const queries = queryString.stringify(
 				{
@@ -68,7 +68,7 @@ export const api = {
 				},
 			);
 
-			const { data } = await request<PalBreedingResponseIEnumerableEnveloped>(`${process.env.API_URL}/breedings/one-parent?${queries}`, {
+			const { data } = await request<BreedingSummaryResponseIEnumerableEnveloped>(`${process.env.API_URL}/breedings/one-parent?${queries}`, {
 				type: "json",
 			});
 
@@ -77,7 +77,7 @@ export const api = {
 			return data;
 
 		},
-		oneChild: async (options: CommandInteractionOption<CacheType>, i18n: TranslationFunctions): Promise<PalSummaryResponse[]> => {
+		oneChild: async (options: CommandInteractionOption<CacheType>, i18n: TranslationFunctions): Promise<BreedingSummaryResponse[]> => {
 
 			const queries = queryString.stringify(
 				{
@@ -90,7 +90,7 @@ export const api = {
 				},
 			);
 
-			const { data } = await request<PalSummaryResponseIEnumerableEnveloped>(`${process.env.API_URL}/breedings/one-child?${queries}`, {
+			const { data } = await request<BreedingSummaryResponseIEnumerableEnveloped>(`${process.env.API_URL}/breedings/one-child?${queries}`, {
 				type: "json",
 			});
 
@@ -100,7 +100,7 @@ export const api = {
 		},
 	},
 	pal: {
-		list: async (i18n: TranslationFunctions) => {
+		list: async (i18n: TranslationFunctions): Promise<CharacterSummaryResponse[]> => {
 
 			const queries = queryString.stringify({
 				lang: i18n.locale(),
@@ -109,7 +109,7 @@ export const api = {
 				skipEmptyString: true,
 			});
 
-			const { data } = await request<PalSummaryResponseIEnumerableEnveloped>(`${process.env.API_URL}/pals?${queries}`, {
+			const { data } = await request<CharacterSummaryResponseIEnumerableEnveloped>(`${process.env.API_URL}/pals?${queries}`, {
 				type: "json",
 			});
 
@@ -117,7 +117,7 @@ export const api = {
 
 			return data;
 		},
-		details: async (query: string, i18n: TranslationFunctions): Promise<PalDetailsResponse | null> => {
+		details: async (query: string, i18n: TranslationFunctions): Promise<CharacterDetailsResponse | null> => {
 			const queries = queryString.stringify(
 				{
 					lang: i18n.locale(),
@@ -128,7 +128,7 @@ export const api = {
 				},
 			);
 
-			const { data } = await request<PalDetailsResponseEnveloped>(`${process.env.API_URL}/pals/${query}?${queries}`, {
+			const { data } = await request<CharacterDetailsResponseEnveloped>(`${process.env.API_URL}/pals/${query}?${queries}`, {
 				type: "json",
 			});
 
@@ -138,7 +138,7 @@ export const api = {
 		},
 	},
 	item: {
-		list: async (i18n: TranslationFunctions) => {
+		list: async (i18n: TranslationFunctions): Promise<ItemSummaryResponse[]> => {
 
 			const queries = queryString.stringify({
 				lang: i18n.locale(),
@@ -147,7 +147,7 @@ export const api = {
 				skipEmptyString: true,
 			});
 
-			const { data } = await request<PalSummaryResponseIEnumerableEnveloped>(`${process.env.API_URL}/items?${queries}`, {
+			const { data } = await request<ItemSummaryResponseIEnumerableEnveloped>(`${process.env.API_URL}/items?${queries}`, {
 				type: "json",
 			});
 
