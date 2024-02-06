@@ -43,7 +43,7 @@ export class PalEmbed extends BaseEmbed {
 
             if (!work) return;
 
-            return `${Emojis[suitability.workSuitabilityId]} ${work.name} - Level ${suitability.rank}`;
+            return `${work.name} - Level ${suitability.rank}`;
           })),
       });
     }
