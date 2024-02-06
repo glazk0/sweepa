@@ -21,11 +21,7 @@ const scheduler = new Scheduler([new Retention()]);
 
 const manager = new Manager(shardManager, scheduler);
 
-try {
-	manager.init();
-} catch (error) {
-	logger.error(`Error on manager init: ${error}`);
-}
+manager.init();
 
 process.on("SIGINT", () => {
 	logger.info("SIGINT signal received.");

@@ -45,7 +45,7 @@ export class Client extends DiscordClient {
 			await this.login(process.env.TOKEN);
 			await this.registerCommands();
 		} catch (error) {
-			this.logger.error(error);
+			this.logger.error(`Error initializing the client: ${error}`);
 			process.exit(1);
 		}
 	}
