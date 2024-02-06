@@ -21,7 +21,7 @@ export default class About implements Interaction {
 		...commands["about"],
 	};
 
-	constructor(@inject(clientSymbol) private client: Client) {}
+	constructor(@inject(clientSymbol) private client: Client) { }
 
 	async run(interaction: ChatInputCommandInteraction<CacheType>, ctx: Context): Promise<InteractionResponse<boolean>> {
 		const guilds = await this.client.shard?.broadcastEval((client) => client.guilds.cache.size);
@@ -51,6 +51,11 @@ export default class About implements Interaction {
 					label: "Github",
 					style: ButtonStyle.Link,
 					url: "https://github.com/glazk0/sweepa",
+				}),
+				new ButtonBuilder({
+					label: "Donate",
+					style: ButtonStyle.Link,
+					url: "https://ko-fi.com/glazk0",
 				}),
 			],
 		});

@@ -1,4 +1,4 @@
-import { CacheType, CommandInteraction, Events, hyperlink } from "discord.js";
+import { CacheType, CommandInteraction, Events } from "discord.js";
 import { inject, injectable } from "tsyringe";
 
 import { Client } from "../structures/Client.js";
@@ -7,13 +7,13 @@ import { ChatInputInteraction, Context } from "../structures/Interaction.js";
 
 import { db } from "../db/client.js";
 import { findOrCreateGuild } from "../db/queries.js";
+import { Guild } from "../db/schema/guilds.js";
 import { logs } from "../db/schema/logs.js";
 
 import L from "../i18n/i18n-node.js";
 import { Locales } from "../i18n/i18n-types.js";
 import { baseLocale } from "../i18n/i18n-util.js";
 
-import { Guild } from "../db/schema/guilds.js";
 import { clientSymbol, discordToPalworld } from "../utils/Constants.js";
 
 @injectable()
@@ -41,7 +41,7 @@ export default class InteractionCreate extends Event {
 
 		if (interaction.inGuild()) {
 			guild = await findOrCreateGuild(interaction.guildId);
-			context.locale = guild?.locale ?? locale;
+			context.locale = guild?.locale && guild.locale;
 			context.i18n = L[guild?.locale as Locales];
 			context.guild = guild;
 		}

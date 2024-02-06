@@ -1,6 +1,6 @@
 import "reflect-metadata";
 
-import { GatewayIntentBits, Options, Partials } from "discord.js";
+import { GatewayIntentBits, Options } from "discord.js";
 import { container } from "tsyringe";
 
 import { Client } from "./structures/Client.js";
@@ -34,7 +34,6 @@ const client = new Client({
 		VoiceStateManager: 0,
 	}),
 	intents: [GatewayIntentBits.Guilds],
-	partials: [Partials.Channel],
 });
 
 container.register(clientSymbol, {

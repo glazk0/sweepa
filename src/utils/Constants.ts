@@ -103,6 +103,12 @@ export const discordToPalworld = {
 	"pt-BR": "pt-br",
 	"zh-CN": "zh-hans",
 	"zh-TW": "zh-hant",
+	"fr": "fr",
+	"de": "de",
+	"it": "it",
+	"ja": "ja",
+	"ko": "ko",
+	"ru": "ru",
 } as Record<Locale, Locales>;
 
 /**
@@ -122,9 +128,54 @@ export const localesMap: Record<Locales, string> = {
 	"zh-hant": "繁體中文", // Supported by gaming.tools/palworld
 };
 
-/**
- * Emojis used by the bot.
- */
-export enum Emojis {
+export enum Emoji {
 	Sweepa = "<:sweepa:1201308767984295997>",
+	Normal = "<:normal:1204413994253688944>",
+	Fire = "<:fire:1204413995759435776>",
+	Water = "<:water:1204413997861048370>",
+	Electricity = "<:electricity:1204413999379251251>",
+	Leaf = "<:leaf:1204414001707221082>",
+	Dark = "<:dark:1204414003002998865>",
+	Dragon = "<:dragon:1204414004479533086>",
+	Earth = "<:earth:1204414013551939605>",
+	Ice = "<:ice:1204414034279931934>",
+	EmitFlame = "<:emitflame:1204414316237955072>",
+	Watering = "<:watering:1204414318578241536>",
+	Seeding = "<:seeding:1204414320268808282>",
+	GenerateElectricity = "<:generateelectricity:1204414321938006066>",
+	Handcraft = "<:handcraft:1204414324311851008>",
+	Collection = "<:collection:1204414326069399552>",
+	Deforest = "<:deforest:1204414328581922816>",
+	Mining = "<:mining:1204414329953456159>",
+	ProductMedicine = "<:productmedicine:1204414331454881792>",
+	OilExtraction = "<:oilextraction:1204414333753229372>",
+	Cooling = "<:cooling:1204414335036952646>",
+	Transport = "<:transport:1204414337758929007>",
+	MonsterFarm = "<:monsterfarm:1204414413671506012>",
 }
+
+export const Emojis: Record<string, Emoji> = {
+	sweepa: Emoji.Sweepa,
+	normal: Emoji.Normal,
+	fire: Emoji.Fire,
+	water: Emoji.Water,
+	electricity: Emoji.Electricity,
+	leaf: Emoji.Leaf,
+	dark: Emoji.Dark,
+	dragon: Emoji.Dragon,
+	earth: Emoji.Earth,
+	ice: Emoji.Ice,
+	emitflame: Emoji.EmitFlame,
+	watering: Emoji.Watering,
+	seeding: Emoji.Seeding,
+	generateelectricity: Emoji.GenerateElectricity,
+	handcraft: Emoji.Handcraft,
+	collection: Emoji.Collection,
+	deforest: Emoji.Deforest,
+	mining: Emoji.Mining,
+	productmedicine: Emoji.ProductMedicine,
+	oilextraction: Emoji.OilExtraction,
+	cooling: Emoji.Cooling,
+	transport: Emoji.Transport,
+	monsterfarm: Emoji.MonsterFarm,
+};

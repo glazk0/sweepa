@@ -5,25 +5,27 @@ import { BaseEmbed } from "./BaseEmbed.js";
 import { Context } from "../../structures/Interaction.js";
 
 import { databaseUrl, iconUrl } from "../../utils/Commons.js";
+import { Emojis } from "../../utils/Constants.js";
 
-import { PalDetailsResponse } from "../../types/api.js";
+import { CharacterDetailsResponse, EntityType } from "../../types/api.js";
 
 export class PalEmbed extends BaseEmbed {
 
-  constructor(pal: PalDetailsResponse, { i18n, locale }: Context) {
+  constructor(pal: CharacterDetailsResponse, { i18n, locale }: Context) {
     super();
 
-    this.data.title = pal.prefix ? `${pal.name}, ${pal.prefix}` : pal.name;
+    // TODO: Refactor this
+    this.data.title = (pal.elements?.map((element) => Emojis[element]).join(" ") || '') + (pal.name ? `${pal.name}, ${pal.name}` : pal.name || `Unamed (TBD ${pal.id})`);
 
-    this.data.url = databaseUrl(locale, ["db", "pal", pal.id]);
+    this.data.url = databaseUrl(locale, ["db", "paldeck", pal.id]);
 
     if (pal.iconPath)
       this.data.thumbnail = {
         url: iconUrl(pal.iconPath, 512),
       };
 
-    if (pal.longDescription) {
-      this.data.description = pal.longDescription;
+    if (pal.description) {
+      this.data.description = pal.description;
     }
 
     const fields: APIEmbedField[] = [];
@@ -34,11 +36,13 @@ export class PalEmbed extends BaseEmbed {
         value: this.toUnorderedList(pal.workSuitabilities
           .map((suitability) => {
 
-            if (!suitability.workId) return;
+            if (!suitability.workSuitabilityId) return;
 
-            const work = pal.workSummariesMap[suitability.workId];
+            const work = pal.relations?.[EntityType.Work][suitability.workSuitabilityId];
 
-            return `${work.name} - Level ${suitability.level}`;
+            if (!work) return;
+
+            return `${Emojis[suitability.workSuitabilityId]} ${work.name} - Level ${suitability.rank}`;
           })),
       });
     }
@@ -47,21 +51,23 @@ export class PalEmbed extends BaseEmbed {
       fields.push({
         name: "Drops",
         value: this.toUnorderedList(pal.drops
-          .map((dropItem) => {
+          .map((itemDrop) => {
 
-            if (!dropItem.itemId) return;
+            if (!itemDrop.itemId) return;
 
-            const drop = pal.dropsMap[dropItem.itemId];
+            const drop = pal.relations?.[EntityType.Item][itemDrop.itemId];
 
-            return hyperlink(`x${dropItem.min === dropItem.max ? dropItem.min : `${dropItem.min}-${dropItem.max}`} ${drop.name} (${dropItem.rate}%)`, databaseUrl(locale, ["db", "item", dropItem.itemId]));
+            if (!drop) return;
+
+            return hyperlink(`x${itemDrop.min === itemDrop.max ? itemDrop.min : `${itemDrop.min}-${itemDrop.max}`} ${drop.name} (${itemDrop.dropRate}%)`, databaseUrl(locale, ["db", "item", itemDrop.itemId]));
           })),
       });
     }
 
-    if (pal.partnerSkill) {
+    if (pal.partnerSkillId) {
       fields.push({
         name: "Partner Skill",
-        value: hyperlink(`${pal.partnerSkill.name}`, databaseUrl(locale, ["db", "partner-skill", pal.partnerSkill.id])),
+        value: hyperlink(`${pal.relations?.[EntityType.PartnerSkill][pal.partnerSkillId].name}`, databaseUrl(locale, ["db", "partner-skill", pal.partnerSkillId])),
       });
     }
 
@@ -71,7 +77,9 @@ export class PalEmbed extends BaseEmbed {
         value: this.toUnorderedList(pal.passiveSkills
           .map((passiveSkill) => {
 
-            const skill = pal.passiveSkillsMap[passiveSkill];
+            const skill = pal.relations?.[EntityType.PassiveSkill][passiveSkill];
+
+            if (!skill) return;
 
             return hyperlink(skill.name, databaseUrl(locale, ["db", "passive-skill", skill.id]));
           })),
@@ -84,11 +92,13 @@ export class PalEmbed extends BaseEmbed {
         value: this.toUnorderedList(pal.activeSkills
           .map((activeSkill) => {
 
-            if (!activeSkill.skillId) return;
+            if (!activeSkill.activeSkillId) return;
 
-            const skill = pal.skillsMap[activeSkill.skillId];
+            const skill = pal.relations?.[EntityType.ActiveSkill][activeSkill.activeSkillId];
 
-            return hyperlink(`${skill.name} - Level ${activeSkill.level}`, databaseUrl(locale, ["db", "active-skill", activeSkill.skillId]));
+            if (!skill) return;
+
+            return hyperlink(`${skill.name} - Level ${activeSkill.level}`, databaseUrl(locale, ["db", "active-skill", activeSkill.activeSkillId]));
           })),
       });
     }
