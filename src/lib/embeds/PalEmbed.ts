@@ -14,8 +14,9 @@ export class PalEmbed extends BaseEmbed {
   constructor(pal: CharacterDetailsResponse, { i18n, locale }: Context) {
     super();
 
-    // TODO: Refactor this
-    this.data.title = (pal.elements?.map((element) => Emojis[element]).join(" ") || '') + (pal.name ? `${pal.name}, ${pal.name}` : pal.name || `Unamed (TBD ${pal.id})`);
+    const elements = pal.elements?.map((element) => Emojis[element]).join(" ");
+
+    this.data.title = (pal.namePrefix ? `${elements} ${pal.name}, ${pal.namePrefix}` : `${elements} ${pal.name || `Unnamed (TBD ${pal.id})`}`).trim();
 
     this.data.url = databaseUrl(locale, ["db", "paldeck", pal.id]);
 
