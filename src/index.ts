@@ -17,7 +17,7 @@ const shardManager = new ShardingManager(getFilePath("Bot.js"), {
 	token: process.env.TOKEN,
 });
 
-const scheduler = new Scheduler([new Retention()]);
+const scheduler = new Scheduler([new Retention(shardManager)]);
 
 const manager = new Manager(shardManager, scheduler);
 

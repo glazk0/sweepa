@@ -1,4 +1,5 @@
-import { inArray, lt } from "drizzle-orm";
+import { inArray, notInArray, and, lt } from "drizzle-orm";
+import { ShardingManager } from 'discord.js';
 
 import { Job } from "./Job.js";
 
@@ -11,37 +12,51 @@ import { logs } from "../../db/schema/logs.js";
 import { duration } from "../../utils/Commons.js";
 
 export class Retention extends Job {
-	name = "Data Retention";
+  name = "Data Retention";
 
-	schedule = "0 0 * * *";
+  schedule = "0 0 * * *";
 
-	delay = duration.seconds(60);
+  delay = duration.seconds(60);
 
-	once = true;
+  once = true;
 
-	async run(): Promise<void> {
-		let oldGuilds = await db.query.guilds.findMany({
-			with: {
-				logs: {
-					where: lt(logs.createdAt, new Date(Date.now() - duration.days(30))),
-				},
-			},
-		});
+  private readonly manager: ShardingManager;
 
-		if (!oldGuilds?.length) return logger.info("No guilds to delete.");
+  constructor(manager: ShardingManager) {
+    super();
 
-		const rows = await db
-			.delete(guilds)
-			.where(
-				inArray(
-					guilds.id,
-					oldGuilds.map((guild) => guild.id),
-				),
-			)
-			.returning({
-				id: guilds.id,
-			});
+    this.manager = manager;
+  }
 
-		logger.info(`Deleted ${rows.length} guilds.`);
-	}
+  async run(): Promise<void> {
+
+    let currentGuilds = [...new Set((await this.manager.broadcastEval((client) => [...client.guilds.cache.keys()])).flat())];
+
+    let oldGuilds = await db.query.guilds.findMany({
+      with: {
+        logs: {
+          where: and(
+            lt(logs.createdAt, new Date(Date.now() - duration.days(30))),
+            notInArray(guilds.guildId, currentGuilds)
+          ),
+        },
+      },
+    });
+
+    if (!oldGuilds?.length) return logger.info("No guilds to delete.");
+
+    const rows = await db
+      .delete(guilds)
+      .where(
+        inArray(
+          guilds.id,
+          oldGuilds.map((guild) => guild.id),
+        ),
+      )
+      .returning({
+        id: guilds.id,
+      });
+
+    logger.info(`Deleted ${rows.length} guilds.`);
+  }
 }
