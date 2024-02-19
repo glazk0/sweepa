@@ -36,7 +36,7 @@ export class ItemEmbed extends BaseEmbed {
 
             if (!drop.id) return;
 
-            const pal = item.relations?.[EntityType.Pal]?.[drop.id];
+            const pal = item.relations?.[EntityType.Pal]?.[drop.id] || item.relations?.[EntityType.Npc]?.[drop.id];
 
             return hyperlink(`x${drop.min === drop.max ? drop.min : `${drop.min}-${drop.max}`} ${pal?.name} (${drop.dropRate}%)`, databaseUrl(locale, ["db", "paldeck", drop.id]));
           })),
