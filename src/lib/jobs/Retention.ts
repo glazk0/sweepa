@@ -1,4 +1,4 @@
-import { inArray, notInArray, and, lt } from "drizzle-orm";
+import { inArray, notInArray, lt, or } from "drizzle-orm";
 import { ShardingManager } from 'discord.js';
 
 import { Job } from "./Job.js";
@@ -35,7 +35,7 @@ export class Retention extends Job {
     let oldGuilds = await db.query.guilds.findMany({
       with: {
         logs: {
-          where: and(
+          where: or(
             lt(logs.createdAt, new Date(Date.now() - duration.days(30))),
             notInArray(guilds.guildId, currentGuilds)
           ),
